@@ -1,0 +1,82 @@
+{
+  "data": [
+    {
+      "title": "Torii SRS (v2)",
+      "subtitle": "Progressive Web App (SPA)",
+      "tech": ["js", "vue", "vuetify", "mysql", "php", "aws", "azure", "watson", "heroku"],
+      "images": [
+        "torii-v2-01.jpg", "torii-v2-03.jpg", "torii-v2-04.jpg",
+        "torii-v2-05.jpg", "torii-v2-06.jpg", "torii-v2-07.jpg",
+        "torii-v2-08.jpg", "torii-v2-09.jpg", "torii-v2-10.jpg"
+      ],
+      "text": "toriiWeb",
+      "buttons": [
+        {
+          "label": "View Website",
+          "href": "https://beta.torii-srs.com",
+          "aria": "toriiweb",
+          "icon": "WebSVG"
+        }
+      ]
+    },
+    {
+      "title": "Torii SRS (v1)",
+      "subtitle": "Cross-Platform App",
+      "text": "toriiJava",
+      "overline": "toriiInfo",
+      "tech": ["java", "libgdx", "mysql", "php", "aws", "wordpress"],
+      "buttons": [
+        { "href": "https://torii-srs.com", "icon": "WebSVG", "label": "View Website" }
+      ],
+      "images": [
+        "torii-v1-1.jpg", "torii-v1-2.png", "torii-v1-3.png",
+        "torii-v1-4.png", "torii-v1-5.png", "torii-v1-6.png"
+      ]
+    },
+    {
+      "title": "IU Quiz App",
+      "subtitle": "Web App (SPA)",
+      "text": "iuQuizApp",
+      "tech": ["js", "vue", "nuxt", "vuetify", "firebase"],
+      "buttons": [
+        { "href": "https://iu-quiz-app.web.app", "icon": "WebSVG", "label": "View Website" },
+        { "href": "https://github.com/Rakantor/iu-quiz-app", "icon": "GITSVG", "label": "View on GitHub" },
+        { "href": "https://d29l6egdxvgg9c.cloudfront.net/iu-quiz-app-projektbericht.pdf", "icon": "NPMSVG", "label": "View Project Report" }
+      ],
+      "images": ["iu-quiz-app-2.jpg"]
+    },
+    {
+      "title": "Menacing Blue",
+      "subtitle": "Cross-Platform App",
+      "text": "pmb",
+      "tech": ["java", "libgdx"],
+      "buttons": [
+        { "href": "https://iu-quiz-app.web.app", "icon": "WebSVG", "label": "View Website" },
+        { "href": "https://github.com/Rakantor/iu-quiz-app", "icon": "GITSVG", "label": "View on GitHub" },
+        { "href": "https://d29l6egdxvgg9c.cloudfront.net/iu-quiz-app-projektbericht.pdf", "icon": "NPMSVG", "label": "View Project Report" }
+      ],
+      "images": ["pmb-6.png", "pmb-1.png", "pmb-2.png", "pmb-3.png", "pmb-4.png", "pmb-5.png", "pmb-7.jpg"]
+    },
+    {
+      "title": "Personal Website",
+      "subtitle": "Web App (SPA)",
+      "text": "personalWebsite",
+      "tech": ["ts", "vue", "nuxt", "vuetify", "ghpages"],
+      "buttons": [
+        { "href": "https://v1.mave.dev", "icon": "WebSVG", "label": "View Website" },
+        { "href": "https://github.com/Rakantor/personal-portfolio", "icon": "GITSVG", "label": "View on GitHub" }
+      ],
+      "images": ["personal-website-1.jpg"]
+    },
+    {
+      "title": "IU Gamer App",
+      "subtitle": "Android App",
+      "text": "iuGamerApp",
+      "tech": ["java", "android", "firebase"],
+      "buttons": [
+        { "href": "https://github.com/Rakantor/iubh-gamer-app", "icon": "GITSVG", "label": "View Website" }
+      ],
+      "images": ["iu-gamer-app-1.jpg", "iu-gamer-app-2.jpg"]
+    }
+  ]
+}
