@@ -385,3 +385,25 @@ footer {
   opacity: 0;
   pointer-events: none;
 }
+
+.language-switcher {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.language-switcher button {
+  background: #2b69fb;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  margin-left: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.language-switcher button:hover {
+  background: #1a4bc7;
+}

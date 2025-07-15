@@ -1,0 +1,40 @@
+{
+  "en": {
+    "nav": {
+      "home": "Home",
+      "projects": "Projects"
+    },
+    "hero": {
+      "intro": "I'm a Software Developer based in Vienna, Austria. I have a passion for crafting a wide range of applications."
+    },
+    "projects": {
+      "title": "My Work",
+      "subtitle": "A collection of projects I've worked on.",
+      "toriiWeb": "A modern spaced repetition system (SRS) for learning Japanese...",
+      "toriiJava": "A cross-platform spaced repetition system...",
+      "iuQuizApp": "A quiz app for IU students...",
+      "pmb": "A cross-platform shoot 'em up game...",
+      "personalWebsite": "My personal portfolio website...",
+      "iuGamerApp": "An Android app for gamers..."
+    }
+  },
+  "de": {
+    "nav": {
+      "home": "Start",
+      "projects": "Projekte"
+    },
+    "hero": {
+      "intro": "Ich bin ein Softwareentwickler aus Wien. Ich entwickle leidenschaftlich gerne verschiedenste Anwendungen."
+    },
+    "projects": {
+      "title": "Meine Arbeit",
+      "subtitle": "Eine Sammlung meiner Projekte.",
+      "toriiWeb": "Ein modernes Lernkarteisystem (SRS) für Japanisch...",
+      "toriiJava": "Ein plattformübergreifendes Lernkarteisystem...",
+      "iuQuizApp": "Eine Quiz-App für IU Studenten...",
+      "pmb": "Ein plattformübergreifendes Shoot 'em up Spiel...",
+      "personalWebsite": "Meine persönliche Portfolio-Website...",
+      "iuGamerApp": "Eine Android-App für Gamer..."
+    }
+  }
+}

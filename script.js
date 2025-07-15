@@ -81,14 +81,16 @@ fetch("projects.json")
 
       // Project text
       const textDiv = document.createElement("div");
+      textDiv.dataset.textKey = project.text;
       textDiv.className = "project-text";
 
       const title = document.createElement("h3");
+      title.className = "project-title";
       title.textContent = project.title;
 
       const para = document.createElement("p");
-      para.className = "project-parragraph";
-      para.textContent = project.text;
+      para.className = "project-paragraph";
+      para.textContent = t(`projects.${project.text}`);
 
       textDiv.appendChild(title);
       textDiv.appendChild(para);
@@ -216,3 +218,55 @@ window.addEventListener("scroll", () => {
     scrollToTopBtn.classList.add("hidden");
   }
 });
+
+let currentLang = 'en';
+let messages = null;
+
+// Load messages first
+async function loadMessages() {
+  const response = await fetch('messages.json');
+  messages = await response.json();
+}
+
+// Function to change language
+function setLanguage(lang) {
+  currentLang = lang;
+  updateContent();
+}
+
+// Function to get translated text
+function t(key) {
+  const keys = key.split('.');
+  let value = messages[currentLang];
+  for (const k of keys) {
+    value = value[k];
+  }
+  return value;
+}
+
+// Update all content
+function updateContent() {
+  // Update hero text
+  document.getElementById('animated-text').textContent = t('hero.intro');
+  
+  // Update projects
+  document.querySelector('.projects-text h2').textContent = t('projects.title');
+  document.querySelector('.projects-text p').textContent = t('projects.subtitle');
+  
+  // Update project descriptions
+  const projects = document.querySelectorAll('.project-text');
+  projects.forEach(project => {
+    const key = project.dataset.textKey;
+    if (key) {
+      project.querySelector('.project-text p').textContent = t(`projects.${key}`);
+    }
+  });
+}
+
+// Initialize
+async function init() {
+  await loadMessages();
+  // ... rest of your initialization code
+}
+
+init();
