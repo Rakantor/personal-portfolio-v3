@@ -124,8 +124,8 @@ fetch("projects.json")
           img.alt = button.aria || "Project Icon";
         }
 
-        img.width = 32;
-        img.height = 32;
+        img.width = 24;
+        img.height = 24;
         a.appendChild(img);
 
         btnDiv.appendChild(a);

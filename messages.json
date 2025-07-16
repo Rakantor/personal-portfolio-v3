@@ -10,12 +10,12 @@
     "projects": {
       "title": "My Work",
       "subtitle": "A collection of projects I've worked on.",
-      "toriiWeb": "A modern spaced repetition system (SRS) for learning Japanese...",
-      "toriiJava": "A cross-platform spaced repetition system...",
-      "iuQuizApp": "A quiz app for IU students...",
-      "pmb": "A cross-platform shoot 'em up game...",
-      "personalWebsite": "My personal portfolio website...",
-      "iuGamerApp": "An Android app for gamers..."
+      "toriiWeb": "Version 2 of my Japanese vocabulary learning tool introduces significant enhancements. Offline functionality is now available (through the utilization of IndexedDB). The web app features an integrated dictionary for efficient word addition, expanded review methods for enhancing vocabulary retention, a review forecast chart for effective study session planning, and enhancements to the word search and statistics functions for improved user insights.",
+      "toriiJava": "A Japanese vocabulary learning tool that harnesses the power of spaced repetition to make memorizing new words a breeze. It combines a straightforward interface with robust features. Designed for both casual learners and those preparing for the Japanese Language Proficiency Test (JLPT), Torii offers specialized vocabulary lists and review methods. Key features include audio reviews, font randomization, progress tracking, and automatic cloud synchronization.",
+      "iuQuizApp": "An online quiz system that supports distance learning students at IU in solidifying their learning content in preparation for the exam. It enables students to cooperatively and collaboratively find answers to subject-related questions. The focus is particularly on working together and playing/learning together. Similar to the popular app Quizduel, students can, but do not have to, play against each other.",
+      "pmb": "A cross-platform 2D game inspired by the 2000s Pokémon games. Built from scratch! Features include animated NPCs, objects and battles (including online multiplayer), custom maps built in Tiled, game sound, 3 difficulty levels and so much more.",
+      "personalWebsite": "My personal portfolio website (v1).",
+      "iuGamerApp": "An Android app designed to help a group of board game enthusiasts better organize their regular evening game sessions. Users will be reliably informed about the time and location of the next appointment. They can suggest games, vote on suggested games, rate past appointments, and communicate with each other via an integrated chat feature."
     }
   },
   "de": {
