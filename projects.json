@@ -51,9 +51,7 @@
       "text": "pmb",
       "tech": ["java", "libgdx"],
       "buttons": [
-        { "href": "https://iu-quiz-app.web.app", "icon": "WebSVG", "label": "View Website" },
-        { "href": "https://github.com/Rakantor/iu-quiz-app", "icon": "GITSVG", "label": "View on GitHub" },
-        { "href": "https://d29l6egdxvgg9c.cloudfront.net/iu-quiz-app-projektbericht.pdf", "icon": "NPMSVG", "label": "View Project Report" }
+        { "href": "https://github.com/Rakantor/", "icon": "GITSVG", "label": "View on GitHub" }
       ],
       "images": ["pmb-6.png", "pmb-1.png", "pmb-2.png", "pmb-3.png", "pmb-4.png", "pmb-5.png", "pmb-7.jpg"]
     },

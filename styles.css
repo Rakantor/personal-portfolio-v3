@@ -190,7 +190,7 @@ h3 {
 .project-img {
   display: flex;
   width: 100%;
-  height: auto;
+  height: 200px;
   background-size: 100%;
   background-position: center top;
   background-repeat: no-repeat;
