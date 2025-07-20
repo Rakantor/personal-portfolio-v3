@@ -1,31 +1,5 @@
 const cdn = "https://d29l6egdxvgg9c.cloudfront.net/";
 
-// Typing animation
-const text = "I'm a Software Developer based in Vienna, Austria. I have a passion for crafting a wide range of applications.";
-
-const words = text.split(" ");
-const container = document.getElementById("animated-text");
-let currentWord = 0;
-
-function showNextWord() {
-  if (currentWord < words.length) {
-    const span = document.createElement("span");
-    span.className = "word";
-    span.textContent = words[currentWord];
-
-    container.appendChild(span);
-    container.appendChild(document.createTextNode(" "));
-
-    void span.offsetWidth; // Force reflow to start animation
-    span.classList.add("visible");
-
-    currentWord++;
-    setTimeout(showNextWord, 30);
-  }
-}
-
-showNextWord();
-
 // Show chevron after 5 seconds
 setTimeout(() => {
   const chevron = document.querySelector('.scroll-chevron');
@@ -47,100 +21,177 @@ window.addEventListener("scroll", () => {
 const grid = document.getElementById("project-grid");
 let projectImages = new Map(); // Store project images by project title
 
-fetch("projects.json")
-  .then(res => res.json())
-  .then(async data => {
-    // Preload all images first
-    await Promise.all(data.data.map(async project => {
-      projectImages.set(project.title, await Promise.all(
-        project.images.map(async imgPath => {
-          const imgUrl = `${cdn}${imgPath}`;
-          const img = new Image();
-          img.src = imgUrl;
-          await img.decode(); // Wait for image to load
-          return imgUrl;
-        })
-      ));
-    }));
+let currentLang = 'en';
+let messages = null;
 
-    // Then create project elements
-    data.data.forEach(project => {
-      const projectDiv = document.createElement("div");
-      projectDiv.className = "project";
+// Load messages first
+async function loadMessages() {
+  const response = await fetch('messages.json');
+  messages = await response.json();
+}
 
-      // Project image
-      const wrapDiv = document.createElement("div");
-      wrapDiv.className = "project-wrap";
+// Function to change language
+function setLanguage(lang) {
+  currentLang = lang;
+  updateContent();
+  startTypingAnimation();
+}
 
-      const imgDiv = document.createElement("div");
-      imgDiv.className = "project-img";
-      imgDiv.style.backgroundImage = `url('${projectImages.get(project.title)[0]}')`;
-      imgDiv.dataset.projectTitle = project.title; // Store project title for modal
+// Function to get translated text
+function t(key) {
+  const keys = key.split('.');
+  let value = messages[currentLang];
+  for (const k of keys) {
+    value = value[k];
+  }
+  return value;
+}
 
-      wrapDiv.appendChild(imgDiv);
+// Update all content
+function updateContent() {
+  // Update hero text
+  document.getElementById('animated-text').textContent = t('hero.intro');
+  
+  // Update projects
+  document.querySelector('.projects-text h2').textContent = t('projects.title');
+  document.querySelector('.projects-text p').textContent = t('projects.subtitle');
+  
+  // Update project descriptions
+  const projects = document.querySelectorAll('.project-text');
+  projects.forEach(project => {
+    const key = project.dataset.textKey;
+    if (key) {
+      project.querySelector('.project-text p').textContent = t(`projects.${key}`);
+    }
+  });
+}
 
-      // Project text
-      const textDiv = document.createElement("div");
-      textDiv.dataset.textKey = project.text;
-      textDiv.className = "project-text";
+// Add the typing animation function:
+function startTypingAnimation() {
+  const container = document.getElementById("animated-text");
+  const text = t('hero.intro');
+  const words = text.split(" ");
+  let currentWord = 0;
+  container.textContent = ""; // Clear any previous content
+  function showNextWord() {
+    if (currentWord < words.length) {
+      const span = document.createElement("span");
+      span.className = "word";
+      span.textContent = words[currentWord];
+      container.appendChild(span);
+      container.appendChild(document.createTextNode(" "));
+      void span.offsetWidth; // Force reflow to start animation
+      span.classList.add("visible");
+      currentWord++;
+      setTimeout(showNextWord, 30);
+    }
+  }
+  showNextWord();
+}
 
-      const title = document.createElement("h3");
-      title.className = "project-title";
-      title.textContent = project.title;
+// Initialize
+async function init() {
+  await loadMessages();
+  startTypingAnimation();
+  // Load projects after messages are loaded
+  fetch("projects.json")
+    .then(res => res.json())
+    .then(async data => {
+      // Preload all images first
+      await Promise.all(data.data.map(async project => {
+        projectImages.set(project.title, await Promise.all(
+          project.images.map(async imgPath => {
+            const imgUrl = `${cdn}${imgPath}`;
+            const img = new Image();
+            img.src = imgUrl;
+            await img.decode(); // Wait for image to load
+            return imgUrl;
+          })
+        ));
+      }));
 
-      const para = document.createElement("p");
-      para.className = "project-paragraph";
-      para.textContent = t(`projects.${project.text}`);
+      // Then create project elements
+      data.data.forEach(project => {
+        const projectDiv = document.createElement("div");
+        projectDiv.className = "project";
 
-      textDiv.appendChild(title);
-      textDiv.appendChild(para);
+        // Project image
+        const wrapDiv = document.createElement("div");
+        wrapDiv.className = "project-wrap";
 
-      wrapDiv.appendChild(textDiv);
+        const imgDiv = document.createElement("div");
+        imgDiv.className = "project-img";
+        imgDiv.style.backgroundImage = `url('${projectImages.get(project.title)[0]}')`;
+        imgDiv.dataset.projectTitle = project.title; // Store project title for modal
 
-      // Buttons
-      const btnDiv = document.createElement("div");
-      btnDiv.className = "project-buttons";
+        wrapDiv.appendChild(imgDiv);
 
-      project.buttons.forEach(button => {
-        const a = document.createElement("a");
-        a.href = button.href;
-        a.setAttribute("aria-label", button.aria);
-        a.target = "_blank";
-        a.rel = "noopener";
+        // Project text
+        const textDiv = document.createElement("div");
+        textDiv.dataset.textKey = project.text;
+        textDiv.className = "project-text";
 
-        // Simple icon fallback
-        const img = document.createElement("img");
-        if (button.icon === "WebSVG") {
-          img.src = "./svg/web.svg";
-          img.alt = "Web Icon";
-        } else if (button.icon === "GITSVG") {
-          img.src = "./svg/github.svg";
-          img.alt = "GitHub Icon";
-        } else if (button.icon === "NPMSVG") {
-          img.src = "./svg/pdf.svg";
-          img.alt = "PDF Icon";
-        } else {
-          img.src = button.icon; // Fallback to custom icon
-          img.alt = button.aria || "Project Icon";
-        }
+        const title = document.createElement("h3");
+        title.className = "project-title";
+        title.textContent = project.title;
 
-        img.width = 24;
-        img.height = 24;
-        a.appendChild(img);
+        const para = document.createElement("p");
+        para.className = "project-paragraph";
+        para.textContent = t(`projects.${project.text}`);
 
-        btnDiv.appendChild(a);
+        textDiv.appendChild(title);
+        textDiv.appendChild(para);
+
+        wrapDiv.appendChild(textDiv);
+
+        // Buttons
+        const btnDiv = document.createElement("div");
+        btnDiv.className = "project-buttons";
+
+        project.buttons.forEach(button => {
+          const a = document.createElement("a");
+          a.href = button.href;
+          a.setAttribute("aria-label", button.aria);
+          a.target = "_blank";
+          a.rel = "noopener";
+
+          // Simple icon fallback
+          const img = document.createElement("img");
+          if (button.icon === "WebSVG") {
+            img.src = "./svg/web.svg";
+            img.alt = "Web Icon";
+          } else if (button.icon === "GITSVG") {
+            img.src = "./svg/github.svg";
+            img.alt = "GitHub Icon";
+          } else if (button.icon === "NPMSVG") {
+            img.src = "./svg/pdf.svg";
+            img.alt = "PDF Icon";
+          } else {
+            img.src = button.icon; // Fallback to custom icon
+            img.alt = button.aria || "Project Icon";
+          }
+
+          img.width = 24;
+          img.height = 24;
+          a.appendChild(img);
+
+          btnDiv.appendChild(a);
+        });
+
+        projectDiv.appendChild(wrapDiv);
+        projectDiv.appendChild(btnDiv);
+
+        grid.appendChild(projectDiv);
       });
 
-      projectDiv.appendChild(wrapDiv);
-      projectDiv.appendChild(btnDiv);
+      // After creating projects, set up modal events
+      setupModalEvents();
+    })
+    .catch(err => console.error("Failed to load projects:", err));
+  // ... rest of your initialization code
+}
 
-      grid.appendChild(projectDiv);
-    });
-
-    // After creating projects, set up modal events
-    setupModalEvents();
-  })
-  .catch(err => console.error("Failed to load projects:", err));
+init();
 
 // Updated Modal code
 const modal = document.getElementById("image-modal");
@@ -218,55 +269,3 @@ window.addEventListener("scroll", () => {
     scrollToTopBtn.classList.add("hidden");
   }
 });
-
-let currentLang = 'en';
-let messages = null;
-
-// Load messages first
-async function loadMessages() {
-  const response = await fetch('messages.json');
-  messages = await response.json();
-}
-
-// Function to change language
-function setLanguage(lang) {
-  currentLang = lang;
-  updateContent();
-}
-
-// Function to get translated text
-function t(key) {
-  const keys = key.split('.');
-  let value = messages[currentLang];
-  for (const k of keys) {
-    value = value[k];
-  }
-  return value;
-}
-
-// Update all content
-function updateContent() {
-  // Update hero text
-  document.getElementById('animated-text').textContent = t('hero.intro');
-  
-  // Update projects
-  document.querySelector('.projects-text h2').textContent = t('projects.title');
-  document.querySelector('.projects-text p').textContent = t('projects.subtitle');
-  
-  // Update project descriptions
-  const projects = document.querySelectorAll('.project-text');
-  projects.forEach(project => {
-    const key = project.dataset.textKey;
-    if (key) {
-      project.querySelector('.project-text p').textContent = t(`projects.${key}`);
-    }
-  });
-}
-
-// Initialize
-async function init() {
-  await loadMessages();
-  // ... rest of your initialization code
-}
-
-init();
