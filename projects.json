@@ -3,7 +3,7 @@
     {
       "title": "Torii SRS (v2)",
       "subtitle": "Progressive Web App (SPA)",
-      "tech": ["js", "vue", "vuetify", "mysql", "php", "aws", "azure", "watson", "heroku"],
+      "tech": ["JavaScript", "Vue.js", "Vuetify", "MySQL", "PHP", "Amazon Web Services", "MS Azure", "IBM Watson"],
       "images": [
         "torii-v2-01.jpg", "torii-v2-03.jpg", "torii-v2-04.jpg",
         "torii-v2-05.jpg", "torii-v2-06.jpg", "torii-v2-07.jpg",
@@ -24,7 +24,7 @@
       "subtitle": "Cross-Platform App",
       "text": "toriiJava",
       "overline": "toriiInfo",
-      "tech": ["java", "libgdx", "mysql", "php", "aws", "wordpress"],
+      "tech": ["Java", "libGDX", "MySQL", "PHP", "Amazon Web Services", "WordPress"],
       "buttons": [
         { "href": "https://torii-srs.com", "icon": "WebSVG", "label": "View Website" }
       ],
@@ -37,7 +37,7 @@
       "title": "IU Quiz App",
       "subtitle": "Web App (SPA)",
       "text": "iuQuizApp",
-      "tech": ["js", "vue", "nuxt", "vuetify", "firebase"],
+      "tech": ["JavaScript", "Vue.js", "Nuxt", "Vuetify", "Firebase"],
       "buttons": [
         { "href": "https://iu-quiz-app.web.app", "icon": "WebSVG", "label": "View Website" },
         { "href": "https://github.com/Rakantor/iu-quiz-app", "icon": "GITSVG", "label": "View on GitHub" },
@@ -49,7 +49,7 @@
       "title": "Menacing Blue",
       "subtitle": "Cross-Platform App",
       "text": "pmb",
-      "tech": ["java", "libgdx"],
+      "tech": ["Java", "libGDX", "Tiled"],
       "buttons": [
         { "href": "https://github.com/Rakantor/", "icon": "GITSVG", "label": "View on GitHub" }
       ],
@@ -59,7 +59,7 @@
       "title": "Personal Website",
       "subtitle": "Web App (SPA)",
       "text": "personalWebsite",
-      "tech": ["ts", "vue", "nuxt", "vuetify", "ghpages"],
+      "tech": ["TypeScript", "Vue.js", "Nuxt", "Vuetify", "GitHub Pages"],
       "buttons": [
         { "href": "https://v1.mave.dev", "icon": "WebSVG", "label": "View Website" },
         { "href": "https://github.com/Rakantor/personal-portfolio", "icon": "GITSVG", "label": "View on GitHub" }
@@ -70,7 +70,7 @@
       "title": "IU Gamer App",
       "subtitle": "Android App",
       "text": "iuGamerApp",
-      "tech": ["java", "android", "firebase"],
+      "tech": ["Java", "Android", "Firebase"],
       "buttons": [
         { "href": "https://github.com/Rakantor/iubh-gamer-app", "icon": "GITSVG", "label": "View Website" }
       ],

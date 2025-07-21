@@ -13,10 +13,19 @@
 </head>
 
 <body>
+  <!-- Language Switcher -->
   <div class="language-switcher">
-  <button onclick="setLanguage('en')" aria-label="Switch to English">EN</button>
-  <button onclick="setLanguage('de')" aria-label="Switch to German">DE</button>
-</div>
+    <button id="lang-dropdown" aria-haspopup="listbox" aria-expanded="false">
+      <span id="lang-flag"></span>
+      <span id="lang-abbr"></span>
+      <svg id="lang-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </button>
+    <ul id="lang-list" class="lang-list hidden" role="listbox">
+      <li data-lang="en" role="option"><span class="flag-icon" id="flag-en"></span> English</li>
+      <li data-lang="de" role="option"><span class="flag-icon" id="flag-de"></span> Deutsch</li>
+    </ul>
+  </div>
+
   <!-- Hero Section -->
   <section class="hero">
     <div class="hero-inner">
@@ -25,7 +34,7 @@
         <div id="animated-text"></div>
       </div>
       <div class="hero-image">
-        <img src="./svg/me.svg" alt="Illustration of me" width="500" height="500">
+        <img src="./svg/hero.svg" alt="Illustration of me" width="500" height="500">
       </div>
     </div>
     <div id="scroll-chevron" class="scroll-chevron hidden">
@@ -76,7 +85,7 @@
     <img id="modal-img" src="" alt="Enlarged project image">
   </div>
 
-    <!-- Scroll to top button -->
+  <!-- Scroll to top button -->
   <button id="scroll-to-top" class="scroll-top hidden" aria-label="Scroll to top">
     <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <polyline points="18 15 12 9 6 15"></polyline>

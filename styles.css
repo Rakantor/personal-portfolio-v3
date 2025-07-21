@@ -23,7 +23,7 @@ body {
   width: 100%;
   min-height: 88vh;
   background: #0a001b;
-  border-top: 10px solid #2b69fb;
+  border-top: 10px solid #3f3d56;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -85,6 +85,93 @@ body {
   }
 }
 
+.language-switcher {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1001;
+}
+
+.language-switcher #lang-abbr {
+  color: #fff;
+}
+
+.language-switcher button#lang-dropdown {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  background: #3f3d56;
+  color: #0a001b;
+  border: 1px solid #252434;
+  border-radius: 2em;
+  padding: 0.3em 1em 0.3em 0.5em;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+.language-switcher button#lang-dropdown:focus {
+  outline: 2px solid #6c63ff;
+  border-color: #6c63ff;
+}
+
+.language-switcher #lang-flag svg,
+.language-switcher .flag-icon svg {
+  display: inline-block;
+  vertical-align: middle;
+  width: 20px;
+  height: 14px;
+  margin-right: 0.3em;
+}
+
+.language-switcher #lang-arrow {
+  color: #fff;
+  margin-left: 0.3em;
+  transition: transform 0.2s;
+}
+
+.language-switcher button[aria-expanded="true"] #lang-arrow {
+  transform: rotate(180deg);
+}
+
+.lang-list {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 1em;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  list-style: none;
+  margin: 0;
+  padding: 0.3em 0;
+  min-width: 120px;
+  z-index: 1002;
+}
+
+.lang-list.hidden {
+  display: none;
+}
+
+.lang-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.5em 1em;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: 500;
+  border-radius: 1em;
+  transition: background 0.2s;
+}
+
+.lang-list li:hover,
+.lang-list li[aria-selected="true"] {
+  background: #f0f0f0;
+}
+
 .scroll-chevron {
   position: absolute;
   bottom: 10px;
@@ -116,7 +203,6 @@ body {
     opacity: 0;
   }
 }
-
 
 .svg-curve {
   fill: none;
@@ -176,8 +262,8 @@ h3 {
 .project {
   padding: 1rem;
   border-radius: 2rem;
-  border: 1px solid #2b69fb1f;
-  box-shadow: 0 0 1rem 1rem #2b69fb0f;
+  border: 1px solid #6c63ff1f;
+  box-shadow: 0 0 1rem 1rem #6c63ff0f;
   position: relative;
 }
 
@@ -195,7 +281,7 @@ h3 {
   background-position: center top;
   background-repeat: no-repeat;
   border-radius: .8rem;
-  border: 1px solid #2b69fb1f;
+  border: 1px solid #6c63ff1f;
   cursor: pointer;
   transition: 0.3s ease-in-out;
 }
@@ -213,8 +299,25 @@ h3 {
   box-shadow: 0 0 4rem 6rem #fafeff;
 }
 
-.project-paragraph {
+.project-tech {
+  margin: 1rem 0;
   margin-bottom: 3.5rem;
+}
+
+.tech-chip {
+  display: inline-block;
+  background: #f0f0f0;
+  color: #333;
+  border-radius: 16px;
+  padding: 0.2em 0.8em;
+  margin: 0 0.5em 0.5em 0;
+  font-size: 0.85em;
+  font-weight: 500;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  transition: background 0.2s;
+}
+.tech-chip:hover {
+  background: #e0e0e0;
 }
 
 .project-buttons {
@@ -373,7 +476,7 @@ footer {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background: #2b69fb;
+  background: #6c63ff;
   color: #fff;
   width: 40px;
   height: 40px;
@@ -395,26 +498,4 @@ footer {
 .scroll-top.hidden {
   opacity: 0;
   pointer-events: none;
-}
-
-.language-switcher {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 1000;
-}
-
-.language-switcher button {
-  background: #2b69fb;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  margin-left: 8px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.language-switcher button:hover {
-  background: #1a4bc7;
 }
