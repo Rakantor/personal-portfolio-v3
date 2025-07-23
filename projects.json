@@ -53,7 +53,7 @@
       "buttons": [
         { "href": "https://github.com/Rakantor/", "icon": "GITSVG", "label": "View on GitHub" }
       ],
-      "images": ["pmb-6.png", "pmb-1.png", "pmb-2.png", "pmb-3.png", "pmb-4.png", "pmb-5.png", "pmb-7.jpg"]
+      "images": ["pmb-6.png", "pmb-1.png", "pmb-2.png", "pmb-3.png", "pmb-4.png", "pmb-5.png"]
     },
     {
       "title": "Personal Website",
