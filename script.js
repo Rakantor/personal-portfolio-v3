@@ -26,8 +26,22 @@ let messages = null;
 
 // Load messages first
 async function loadMessages() {
-  const response = await fetch('messages.json');
-  messages = await response.json();
+  try {
+    const response = await fetch('messages.json');
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    messages = await response.json();
+  } catch (error) {
+    console.error('Failed to load messages:', error);
+    // Fallback to English-only mode
+    messages = {
+      en: {
+        hero: { intro: "I'm a Software Developer based in Vienna, Austria. I have a passion for crafting a wide range of applications." },
+        projects: { title: "My Work", subtitle: "A collection of projects I've worked on." }
+      }
+    };
+  }
 }
 
 // Function to change language
@@ -61,7 +75,7 @@ function updateContent() {
   projects.forEach(project => {
     const key = project.dataset.textKey;
     if (key) {
-      project.querySelector('.project-text p').textContent = t(`projects.${key}`);
+      project.querySelector('.project-paragraph').textContent = t(`projects.${key}`);
     }
   });
 }
@@ -95,20 +109,17 @@ async function init() {
   startTypingAnimation();
   // Load projects after messages are loaded
   fetch("projects.json")
-    .then(res => res.json())
+    .then(res => {
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+      return res.json();
+    })
     .then(async data => {
-      // Preload all images first
-      await Promise.all(data.data.map(async project => {
-        projectImages.set(project.title, await Promise.all(
-          project.images.map(async imgPath => {
-            const imgUrl = `${cdn}${imgPath}`;
-            const img = new Image();
-            img.src = imgUrl;
-            await img.decode(); // Wait for image to load
-            return imgUrl;
-          })
-        ));
-      }));
+      // Store image URLs without preloading for lazy loading
+      data.data.forEach(project => {
+        projectImages.set(project.title, project.images.map(imgPath => `${cdn}${imgPath}`));
+      });
 
       // Then create project elements
       data.data.forEach(project => {
@@ -121,8 +132,21 @@ async function init() {
 
         const imgDiv = document.createElement("div");
         imgDiv.className = "project-img";
-        imgDiv.style.backgroundImage = `url('${projectImages.get(project.title)[0]}')`;
         imgDiv.dataset.projectTitle = project.title; // Store project title for modal
+        imgDiv.dataset.bgImage = projectImages.get(project.title)[0]; // Store image URL for lazy loading
+        
+        // Implement lazy loading with Intersection Observer
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const target = entry.target;
+              target.style.backgroundImage = `url('${target.dataset.bgImage}')`;
+              observer.unobserve(target);
+            }
+          });
+        }, { threshold: 0.1 });
+        
+        observer.observe(imgDiv);
 
         wrapDiv.appendChild(imgDiv);
 
@@ -198,11 +222,52 @@ async function init() {
       // After creating projects, set up modal events
       setupModalEvents();
     })
-    .catch(err => console.error("Failed to load projects:", err));
+    .catch(err => {
+      console.error("Failed to load projects:", err);
+      // Show error message to user
+      const errorDiv = document.createElement('div');
+      errorDiv.style.cssText = 'padding: 2rem; text-align: center; color: #666;';
+      errorDiv.textContent = 'Unable to load projects. Please check your connection and try again.';
+      grid.appendChild(errorDiv);
+    });
   // ... rest of your initialization code
 }
 
 init();
+
+// Welcome SVG animation
+const fillPath = (svgId, pathId, color) => {
+  setTimeout(() => {
+    let currentFrame = 0;
+    const totalFrames = 800;
+    const svg = document.getElementById(svgId);
+    const path = svg.getElementById ? svg.getElementById(pathId) : svg.querySelector(`#${pathId}`);
+
+    const length = path.getTotalLength();
+    path.style.strokeDasharray = `${length} ${length}`;
+    path.style.strokeDashoffset = length;
+    path.style.stroke = color;
+
+    const draw = () => {
+      const progress = currentFrame / totalFrames;
+      if (progress > 0.25) {
+        path.style.fill = color;
+        window.cancelAnimationFrame(handle);
+      } else {
+        currentFrame++;
+        path.style.strokeDashoffset = Math.floor(length * (1 - progress));
+        handle = window.requestAnimationFrame(draw);
+      }
+    };
+
+    let handle = window.requestAnimationFrame(draw);
+  }, 100);
+};
+
+// Start the welcome animation after a short delay
+setTimeout(() => {
+  fillPath('welcome', 'welcome_path', '#fff');
+}, 60);
 
 // Updated Modal code
 const modal = document.getElementById("image-modal");
@@ -240,16 +305,24 @@ function setupModalEvents() {
   });
 }
 
-prevBtn.addEventListener("click", (e) => {
-  e.stopPropagation();
+function prevImage() {
   currentImageIndex = (currentImageIndex - 1 + currentProjectImages.length) % currentProjectImages.length;
   updateModalImage();
+}
+
+function nextImage() {
+  currentImageIndex = (currentImageIndex + 1) % currentProjectImages.length;
+  updateModalImage();
+}
+
+prevBtn.addEventListener("click", (e) => {
+  e.stopPropagation();
+  prevImage();
 });
 
 nextBtn.addEventListener("click", (e) => {
   e.stopPropagation();
-  currentImageIndex = (currentImageIndex + 1) % currentProjectImages.length;
-  updateModalImage();
+  nextImage();
 });
 
 closeBtn.addEventListener("click", () => {
@@ -259,6 +332,27 @@ closeBtn.addEventListener("click", () => {
 modal.addEventListener("click", (e) => {
   if (e.target === modal) {
     modal.classList.add("hidden");
+  }
+});
+
+// Add keyboard navigation for modal
+document.addEventListener("keydown", (e) => {
+  if (!modal.classList.contains("hidden")) {
+    switch(e.key) {
+      case "Escape":
+        modal.classList.add("hidden");
+        break;
+      case "ArrowRight":
+      case "ArrowUp":
+        e.preventDefault();
+        nextImage();
+        break;
+      case "ArrowLeft":
+      case "ArrowDown":
+        e.preventDefault();
+        prevImage();
+        break;
+    }
   }
 });
 
