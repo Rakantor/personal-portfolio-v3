@@ -83,14 +83,18 @@ body {
 }
 
 .hero-image {
+  width: 100%;
+  max-width: 500px;
   animation: fadeIn 0.3s ease-in-out;
 }
 
 .hero-image img {
-  padding: 64px;
+  width: 100%;
+  height: auto;
+  max-width: 500px;
+  padding: 2rem;
   filter: drop-shadow(0 0 20px var(--color-shadow));
 }
-
 
 #welcome-container {
   display: inline-block;
@@ -136,11 +140,12 @@ body {
 
   .hero-text {
     width: 100%;
+    justify-items: center;
   }
 
   .hero-image {
-    width: 100%;
-    max-width: 500px;
+    display: flex;
+    justify-content: center;
   }
 }
 

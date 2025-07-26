@@ -1,5 +1,34 @@
 const cdn = "https://d29l6egdxvgg9c.cloudfront.net/";
 
+// Welcome SVG animation
+const fillPath = (svgId, pathId, color) => {
+  setTimeout(() => {
+    let currentFrame = 0;
+    const totalFrames = 800;
+    const svg = document.getElementById(svgId);
+    const path = svg.getElementById ? svg.getElementById(pathId) : svg.querySelector(`#${pathId}`);
+
+    const length = path.getTotalLength();
+    path.style.strokeDasharray = `${length} ${length}`;
+    path.style.strokeDashoffset = length;
+    path.style.stroke = color;
+
+    const draw = () => {
+      const progress = currentFrame / totalFrames;
+      if (progress > 0.25) {
+        path.style.fill = color;
+        window.cancelAnimationFrame(handle);
+      } else {
+        currentFrame++;
+        path.style.strokeDashoffset = Math.floor(length * (1 - progress));
+        handle = window.requestAnimationFrame(draw);
+      }
+    };
+
+    let handle = window.requestAnimationFrame(draw);
+  }, 100);
+};
+
 // Show chevron after 5 seconds
 setTimeout(() => {
   const chevron = document.querySelector('.scroll-chevron');
@@ -47,6 +76,7 @@ async function loadMessages() {
 // Function to change language
 function setLanguage(lang) {
   currentLang = lang;
+  loadWelcomeSVG(lang);
   updateContent();
   startTypingAnimation();
 }
@@ -103,9 +133,35 @@ function startTypingAnimation() {
   showNextWord();
 }
 
+// Function to load welcome SVG based on language
+async function loadWelcomeSVG(lang) {
+  try {
+    const svgPath = `svg/welcome_${lang}.svg`;
+    const response = await fetch(svgPath);
+    if (!response.ok) {
+      throw new Error(`Failed to load SVG: ${response.status}`);
+    }
+    const svgContent = await response.text();
+    
+    document.getElementById('welcome-container').innerHTML = svgContent;
+    
+    // Start animation after a short delay
+    setTimeout(() => {
+      fillPath('welcome', 'welcome_path', '#fff');
+    }, 100);
+  } catch (error) {
+    console.error('Failed to load welcome SVG:', error);
+    // Fallback to English if the requested language fails
+    if (lang !== 'en') {
+      loadWelcomeSVG('en');
+    }
+  }
+}
+
 // Initialize
 async function init() {
   await loadMessages();
+  loadWelcomeSVG(currentLang);
   startTypingAnimation();
   // Load projects after messages are loaded
   fetch("projects.json")
@@ -206,8 +262,8 @@ async function init() {
             img.alt = button.aria || "Project Icon";
           }
 
-          img.width = 24;
-          img.height = 24;
+          img.width = 32;
+          img.height = 32;
           a.appendChild(img);
 
           btnDiv.appendChild(a);
@@ -234,40 +290,6 @@ async function init() {
 }
 
 init();
-
-// Welcome SVG animation
-const fillPath = (svgId, pathId, color) => {
-  setTimeout(() => {
-    let currentFrame = 0;
-    const totalFrames = 800;
-    const svg = document.getElementById(svgId);
-    const path = svg.getElementById ? svg.getElementById(pathId) : svg.querySelector(`#${pathId}`);
-
-    const length = path.getTotalLength();
-    path.style.strokeDasharray = `${length} ${length}`;
-    path.style.strokeDashoffset = length;
-    path.style.stroke = color;
-
-    const draw = () => {
-      const progress = currentFrame / totalFrames;
-      if (progress > 0.25) {
-        path.style.fill = color;
-        window.cancelAnimationFrame(handle);
-      } else {
-        currentFrame++;
-        path.style.strokeDashoffset = Math.floor(length * (1 - progress));
-        handle = window.requestAnimationFrame(draw);
-      }
-    };
-
-    let handle = window.requestAnimationFrame(draw);
-  }, 100);
-};
-
-// Start the welcome animation after a short delay
-setTimeout(() => {
-  fillPath('welcome', 'welcome_path', '#fff');
-}, 60);
 
 // Updated Modal code
 const modal = document.getElementById("image-modal");
@@ -451,4 +473,3 @@ setLanguage = function(lang) {
 
 // Initial render
 updateLangDropdown();
-// --- End Language Switcher Dropdown Logic ---

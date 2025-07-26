@@ -5,7 +5,8 @@
       "projects": "Projects"
     },
     "hero": {
-      "intro": "I'm a Software Developer based in Vienna, Austria. I have a passion for crafting a wide range of applications."
+      "intro": "I'm Manuel, a Software Developer based in Vienna, Austria. I'm passionate about creating software that's useful, engaging, or simply enjoyable to use. Over the years, I've built a wide range of applications across platforms - from desktop and web to mobile.",
+      "introAlt": "Hey, I'm Manuel, a Software Developer living in Vienna. I love turning ideas into software people find useful, fun, or a bit of both. From web to mobile to desktop, I've built all sorts of things along the way."
     },
     "projects": {
       "title": "My Work",
@@ -24,7 +25,7 @@
       "projects": "Projekte"
     },
     "hero": {
-      "intro": "Ich bin ein Softwareentwickler aus Wien. Ich entwickle leidenschaftlich gerne verschiedenste Anwendungen."
+      "intro": "Ich bin Manuel, ein Softwareentwickler aus Wien. Ich entwickle leidenschaftlich gerne Software die nützlich ist, begeistert oder einfach Spaß macht. Im Laufe der Jahre habe ich verschiedenste Anwendungen für unterschiedliche Plattformen entwickelt - von Desktop- und Web-Anwendungen bis hin zu mobilen Apps."
     },
     "projects": {
       "title": "Meine Projekte",
