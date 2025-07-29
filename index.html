@@ -5,10 +5,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Manuel Veigel | Software Developer</title>
-  <meta name="description" content="Home of Manuel projects.">
   <link rel="icon" sizes="any" type="image/png" href="favicon.png">
   <link rel="preload" href="./fonts/Montserrat/Montserrat-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="dark-theme.css">
   <script src="script.js" defer></script>
 </head>
 
@@ -46,11 +45,10 @@
         <polyline points="6 9 12 15 18 9"></polyline>
       </svg>
     </div>
+    <svg class="hero-ellipsis" viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="720" cy="60" rx="720" ry="60"/>
+    </svg>
   </section>
-
-  <svg class="svg-curve" viewBox="0 0 1440 79" xmlns="http://www.w3.org/2000/svg">
-    <path d="M-100 79C-100 79 218.416 23.165 693.5 23.165C1168.58 23.165 1487 79 1487 79V0H-100V79Z"></path>
-  </svg>
 
   <!-- Projects Section -->
   <section class="projects">
@@ -63,12 +61,11 @@
     </div>
   </section>
 
-  <svg class="svg-curve" viewBox="0 0 1440 79" xmlns="http://www.w3.org/2000/svg">
-    <path d="M-100 0C-100 0 218.416 55.835 693.5 55.835C1168.58 55.835 1487 0 1487 0V79H-100V0Z"></path>
-  </svg>
-
   <!-- Footer -->
   <footer>
+    <svg class="footer-ellipsis" viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="720" cy="0" rx="720" ry="60"/>
+    </svg>
     <div class="footer-inner">
       <div class="footer-social">
         <a aria-label="GitHub" href="https://github.com/Rakantor/" target="_blank" rel="noopener">
@@ -86,7 +83,7 @@
     </div>
   </footer>
 
-  <!-- Modal -->
+  <!-- Modal (Slideshow Gallery for project images) -->
   <div id="image-modal" class="modal hidden">
     <span id="modal-close">&times;</span>
     <img id="modal-img" src="" alt="Enlarged project image">
