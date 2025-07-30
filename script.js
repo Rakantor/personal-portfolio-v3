@@ -1,5 +1,30 @@
 const cdn = "https://d29l6egdxvgg9c.cloudfront.net/";
 
+// Function to load welcome SVG based on language
+async function loadWelcomeSVG(lang) {
+  try {
+    const svgPath = `svg/welcome_${lang}.svg`;
+    const response = await fetch(svgPath);
+    if (!response.ok) {
+      throw new Error(`Failed to load SVG: ${response.status}`);
+    }
+    const svgContent = await response.text();
+    
+    document.getElementById('welcome-container').innerHTML = svgContent;
+    
+    // Start animation after a short delay
+    setTimeout(() => {
+      fillPath('welcome', 'welcome_path', '#fff');
+    }, 100);
+  } catch (error) {
+    console.error('Failed to load welcome SVG:', error);
+    // Fallback to English if the requested language fails
+    if (lang !== 'en') {
+      loadWelcomeSVG('en');
+    }
+  }
+}
+
 // Welcome SVG animation
 const fillPath = (svgId, pathId, color) => {
   setTimeout(() => {
@@ -29,13 +54,36 @@ const fillPath = (svgId, pathId, color) => {
   }, 100);
 };
 
-// Show chevron after 5 seconds
+// Typing animation for hero text
+function startTypingAnimation() {
+  const container = document.getElementById("animated-text");
+  const text = t('hero.intro');
+  const words = text.split(" ");
+  let currentWord = 0;
+  container.textContent = ""; // Clear any previous content
+  function showNextWord() {
+    if (currentWord < words.length) {
+      const span = document.createElement("span");
+      span.className = "word";
+      span.textContent = words[currentWord];
+      container.appendChild(span);
+      container.appendChild(document.createTextNode(" "));
+      void span.offsetWidth; // Force reflow to start animation
+      span.classList.add("visible");
+      currentWord++;
+      setTimeout(showNextWord, 30);
+    }
+  }
+  showNextWord();
+}
+
+// Show scroll down chevron after 5 seconds
 setTimeout(() => {
   const chevron = document.querySelector('.scroll-chevron');
   chevron.classList.remove('hidden');
 }, 5000);
 
-// Scroll arrow functionality
+// Scroll down chevron functionality
 const scrollChevron = document.getElementById("scroll-chevron");
 
 window.addEventListener("scroll", () => {
@@ -96,7 +144,7 @@ function updateContent() {
   // Update hero text
   document.getElementById('animated-text').textContent = t('hero.intro');
   
-  // Update projects
+  // Update project titles and subtitles
   document.querySelector('.projects-text h2').textContent = t('projects.title');
   document.querySelector('.projects-text p').textContent = t('projects.subtitle');
   
@@ -108,54 +156,6 @@ function updateContent() {
       project.querySelector('.project-paragraph').textContent = t(`projects.${key}`);
     }
   });
-}
-
-// Add the typing animation function:
-function startTypingAnimation() {
-  const container = document.getElementById("animated-text");
-  const text = t('hero.intro');
-  const words = text.split(" ");
-  let currentWord = 0;
-  container.textContent = ""; // Clear any previous content
-  function showNextWord() {
-    if (currentWord < words.length) {
-      const span = document.createElement("span");
-      span.className = "word";
-      span.textContent = words[currentWord];
-      container.appendChild(span);
-      container.appendChild(document.createTextNode(" "));
-      void span.offsetWidth; // Force reflow to start animation
-      span.classList.add("visible");
-      currentWord++;
-      setTimeout(showNextWord, 30);
-    }
-  }
-  showNextWord();
-}
-
-// Function to load welcome SVG based on language
-async function loadWelcomeSVG(lang) {
-  try {
-    const svgPath = `svg/welcome_${lang}.svg`;
-    const response = await fetch(svgPath);
-    if (!response.ok) {
-      throw new Error(`Failed to load SVG: ${response.status}`);
-    }
-    const svgContent = await response.text();
-    
-    document.getElementById('welcome-container').innerHTML = svgContent;
-    
-    // Start animation after a short delay
-    setTimeout(() => {
-      fillPath('welcome', 'welcome_path', '#fff');
-    }, 100);
-  } catch (error) {
-    console.error('Failed to load welcome SVG:', error);
-    // Fallback to English if the requested language fails
-    if (lang !== 'en') {
-      loadWelcomeSVG('en');
-    }
-  }
 }
 
 // Initialize
@@ -239,32 +239,58 @@ async function init() {
         const btnDiv = document.createElement("div");
         btnDiv.className = "project-buttons";
 
-        project.buttons.forEach(button => {
+        project.buttons.forEach(async button => {
           const a = document.createElement("a");
           a.href = button.href;
           a.setAttribute("aria-label", button.aria);
           a.target = "_blank";
           a.rel = "noopener";
 
-          // Simple icon fallback
-          const img = document.createElement("img");
+          // Load SVG inline for proper CSS styling
+          let svgPath;
           if (button.icon === "WebSVG") {
-            img.src = "./svg/web.svg";
-            img.alt = "Web Icon";
+            svgPath = "./svg/web.svg";
           } else if (button.icon === "GITSVG") {
-            img.src = "./svg/github.svg";
-            img.alt = "GitHub Icon";
+            svgPath = "./svg/github.svg";
           } else if (button.icon === "NPMSVG") {
-            img.src = "./svg/pdf.svg";
-            img.alt = "PDF Icon";
+            svgPath = "./svg/pdf.svg";
           } else {
-            img.src = button.icon; // Fallback to custom icon
+            // Fallback to img element for custom icons
+            const img = document.createElement("img");
+            img.src = button.icon;
             img.alt = button.aria || "Project Icon";
+            img.width = 32;
+            img.height = 32;
+            a.appendChild(img);
+            btnDiv.appendChild(a);
+            return;
           }
 
-          img.width = 32;
-          img.height = 32;
-          a.appendChild(img);
+          try {
+            const response = await fetch(svgPath);
+            const svgContent = await response.text();
+            const div = document.createElement("div");
+            div.className = "project-btn-icon";
+            div.innerHTML = svgContent;
+            
+            // Set width and height on the SVG element
+            const svg = div.querySelector("svg");
+            if (svg) {
+              svg.setAttribute("width", "32");
+              svg.setAttribute("height", "32");
+            }
+            
+            a.appendChild(div);
+          } catch (error) {
+            console.error(`Failed to load SVG: ${svgPath}`, error);
+            // Fallback to img element
+            const img = document.createElement("img");
+            img.src = svgPath;
+            img.alt = button.aria || "Project Icon";
+            img.width = 32;
+            img.height = 32;
+            a.appendChild(img);
+          }
 
           btnDiv.appendChild(a);
         });
