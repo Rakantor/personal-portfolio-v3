@@ -57,7 +57,6 @@ body {
   justify-content: center;
   align-items: center;
   padding: 2rem 1rem;
-  margin-bottom: -2px;
   position: relative;
 }
 
@@ -395,7 +394,6 @@ h3 {
   margin: 0 0.5em 0.5em 0;
   font-size: 0.85em;
   font-weight: 500;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
   transition: all 0.2s ease;
   border: 1px solid transparent;
 }
@@ -415,14 +413,14 @@ h3 {
   padding: 1rem;
 }
 
-.project-buttons img {
-  filter: brightness(0) saturate(100%) invert(100%);
+.project-btn-icon svg path {
+  fill: var(--color-text-light);
   transition: all 0.2s ease;
 }
 
-.project-buttons a:hover img {
-  opacity: 0.8;
-  transform: scale(1.1);
+.project-buttons a:hover .project-btn-icon svg path {
+  fill: var(--color-primary-hover);
+  transform: translateY(-1px);
 }
 
 a {
