@@ -41,7 +41,7 @@
       "buttons": [
         { "href": "https://iu-quiz-app.web.app", "icon": "WebSVG", "label": "View Website" },
         { "href": "https://github.com/Rakantor/iu-quiz-app", "icon": "GITSVG", "label": "View on GitHub" },
-        { "href": "https://d29l6egdxvgg9c.cloudfront.net/iu-quiz-app-projektbericht.pdf", "icon": "NPMSVG", "label": "View Project Report" }
+        { "href": "https://d29l6egdxvgg9c.cloudfront.net/iu-quiz-app-projektbericht.pdf", "icon": "PDFSVG", "label": "View Project Report" }
       ],
       "images": ["iu-quiz-app-2.jpg"]
     },

@@ -302,6 +302,16 @@ body {
   margin-bottom: 2rem;
 }
 
+.projects-text h2,
+.projects-text p {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.projects-text h2.lang-switching,
+.projects-text p.lang-switching {
+  opacity: 0;
+}
+
 h2 {
   font-size: 3rem;
   line-height: 1;
@@ -378,6 +388,14 @@ h3 {
   padding: 0 1rem;
   color: var(--color-text-light);
   box-shadow: 0 0 4rem 6rem var(--color-bg-accent);
+}
+
+.project-text .project-paragraph {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.project-text .project-paragraph.lang-switching {
+  opacity: 0;
 }
 
 .project-tech {
