@@ -34,6 +34,27 @@
       ]
     },
     {
+      "title": "Torii SRS Landing Page",
+      "subtitle": "Marketing Website",
+      "text": "toriiLandingPage",
+      "tech": ["TypeScript", "Astro", "React", "Tailwind CSS", "shadcn/ui"],
+      "buttons": [
+        {
+          "label": "View Website",
+          "href": "https://beta.torii-srs.com",
+          "aria": "Torii SRS landing page",
+          "icon": "WebSVG"
+        },
+        {
+          "label": "View on GitHub",
+          "href": "https://github.com/Rakantor/torii-srs-site",
+          "aria": "Torii SRS landing page GitHub repository",
+          "icon": "GITSVG"
+        }
+      ],
+      "images": ["torii-srs-site-1.jpg"]
+    },
+    {
       "title": "IU Quiz App",
       "subtitle": "Web App (SPA)",
       "text": "iuQuizApp",
