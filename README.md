@@ -1,4 +1,4 @@
-# Personal Portfolio v3
+# Personal Portfolio v2
 
 A clean, modern personal portfolio website showcasing my software development projects and skills.
 
@@ -9,7 +9,6 @@ A clean, modern personal portfolio website showcasing my software development pr
 - **Assets**: SVG icons and illustrations
 - **Performance**: CDN for project images, lazy loading
 
-## Previous Versions
+## Previous Version
 
 - [v1](https://github.com/Rakantor/personal-portfolio)
-- [v2](https://github.com/Rakantor/personal-portfolio-v2)
